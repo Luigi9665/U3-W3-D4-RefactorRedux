@@ -33,7 +33,7 @@ const CompanySearchResults = () => {
       <Row>
         <Col className="my-3">
           <div className="d-flex align-items-center justify-content-between">
-            <h1 className="display-4">Job posting for: {params.company}</h1>
+            <h1 className="display-4 text-white">Job posting for: {params.company}</h1>
             <Link to="/" className="text-decoration-none">
               <Button variant="success">Home</Button>
             </Link>

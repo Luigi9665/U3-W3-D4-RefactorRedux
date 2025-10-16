@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { StarFill, XCircle } from "react-bootstrap-icons";
 import { addResultsAction, removeResultsAction } from "../redux/action";
+import { motion } from "motion/react";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
@@ -49,14 +50,30 @@ const MainSearch = () => {
     <Container>
       <Row>
         <Col xs={10} className="mx-auto my-3">
-          <h1 className="display-1">Remote Jobs Search</h1>
+          <motion.h1
+            className="display-1 text-white text-center"
+            initial={{ y: -250 }}
+            animate={{ y: 0 }}
+            transition={{ type: "spring", stiffness: 250, damping: 20 }}
+          >
+            Remote Jobs Search
+          </motion.h1>
         </Col>
         <Col xs={10} className="mx-auto">
-          <div className="d-flex align-items-center gap-3">
+          <motion.div className="d-flex align-items-center gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
             <Link to="/favorites">
-              <div style={{ position: "relative" }} className="border border-2 border-info d-flex align-itmes-center rounded-5 py-3 px-4">
-                <StarFill />
-                <span className="fw-semibold" style={{ fontSize: "14px", position: "absolute", top: "0", right: "16px" }}>
+              <div
+                style={{ position: "relative" }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
+                className={`border border-2 ${favoriteLength === 0 ? "border-white" : "favorites"} d-flex align-itmes-center rounded-5 py-3 px-4`}
+              >
+                <StarFill className={`${favoriteLength === 0 ? "text-white" : "text-warning"}`} />
+                <span className={`fw-semibold`} style={{ fontSize: "14px", position: "absolute", top: "0", right: "16px" }}>
                   {favoriteLength === 0 ? "" : favoriteLength}
                 </span>
               </div>
@@ -65,7 +82,17 @@ const MainSearch = () => {
               <Form className="flex-fill" onSubmit={handleSubmit}>
                 <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" />
               </Form>
-              <div style={{ cursor: "pointer" }} className="d-flex flex-column align-items-center text-danger" onClick={() => dispatch(removeResultsAction())}>
+              <div
+                style={{ cursor: "pointer" }}
+                className="d-flex flex-column align-items-center text-danger"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.15)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
+                onClick={() => dispatch(removeResultsAction())}
+              >
                 <XCircle className=" fs-2" />
                 <small>Clear All</small>
               </div>
@@ -75,7 +102,7 @@ const MainSearch = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             )}
-          </div>
+          </motion.div>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
           {hasError && (
