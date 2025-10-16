@@ -1,3 +1,5 @@
+import { Add_RESULTS, ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from "../action";
+
 const initialState = {
   searchResults: {
     content: [],
@@ -9,7 +11,7 @@ const initialState = {
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "Add_RESULTS":
+    case Add_RESULTS:
       console.log("Add_RESULTS");
       return {
         ...state,
@@ -18,7 +20,7 @@ const mainReducer = (state = initialState, action) => {
           content: action.payload,
         },
       };
-    case "ADD_TO_FAVORITES": {
+    case ADD_TO_FAVORITES: {
       console.log("ADD_TO_FAVORITES");
       return {
         ...state,
@@ -28,7 +30,7 @@ const mainReducer = (state = initialState, action) => {
         },
       };
     }
-    case "REMOVE_FROM_FAVORITES":
+    case REMOVE_FROM_FAVORITES:
       console.log("REMOVE_FROM_FAVORITES");
       return {
         ...state,

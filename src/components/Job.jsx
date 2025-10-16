@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { StarFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { addToFavoriteAction, removeFromFavoriteAction } from "../redux/action";
 
 const Job = ({ data }) => {
   const [favorite, setFavorite] = useState(false);
@@ -21,10 +22,10 @@ const Job = ({ data }) => {
 
   const starClick = () => {
     if (favorite) {
-      dispatch({ type: "REMOVE_FROM_FAVORITES", payload: data });
+      dispatch(removeFromFavoriteAction(data));
       setFavorite(false);
     } else {
-      dispatch({ type: "ADD_TO_FAVORITES", payload: data });
+      dispatch(addToFavoriteAction(data));
     }
   };
 

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Job from "./Job";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { StarFill } from "react-bootstrap-icons";
+import { Add_RESULTS, addResultsAction } from "../redux/action";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
-  // const [jobs, setJobs] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -24,18 +24,19 @@ const MainSearch = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        // setJobs(data);
-        dispatch({ type: "Add_RESULTS", payload: data });
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const response = await fetch(baseEndpoint + query + "&limit=20");
+    //   if (response.ok) {
+    //     const { data } = await response.json();
+    //     dispatch({ type: Add_RESULTS, payload: data });
+    //   } else {
+    //     alert("Error fetching results");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    dispatch(addResultsAction(baseEndpoint, query));
   };
 
   return (
